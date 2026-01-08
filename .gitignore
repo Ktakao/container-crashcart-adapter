@@ -1,2 +1,4 @@
 app/*
+!app/.gitkeep
 screenshots/*
+!screenshots/.gitkeep
