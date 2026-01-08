@@ -1,0 +1,18 @@
+services:
+  crashcart:
+    build: .
+    container_name: startech-crashcart
+    privileged: true
+    network_mode: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=${XAUTHORITY:-/root/.Xauthority}
+      - HOME=/root
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./app:/app:Z
+      - ./screenshots:/root/screenshots:Z
+      - ${XAUTHORITY:-$HOME/.Xauthority}:${XAUTHORITY:-/root/.Xauthority}:rw
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
