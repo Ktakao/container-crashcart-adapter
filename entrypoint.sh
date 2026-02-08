@@ -16,7 +16,7 @@ echo "Installing..."
 
 # Install the package and dependencies
 dpkg -i "${deb_file}" ||
-	(apt update && apt install -f -y && dpkg -i "${deb_file}")
+	(apt-get update && apt-get install -f -y && dpkg -i "${deb_file}")
 
 echo "Installation complete."
 
