@@ -2,7 +2,7 @@
 set -eu
 
 # Search for the .deb file recursively in /app
-deb_file=$(find /app -name "*.deb" | grep "X64" | head -n 1)
+deb_file=$(find /app -name "*.deb" | grep "64bit" | head -n 1)
 [ -z "${deb_file}" ] \
   && deb_file=$(find /app -name "*.deb" | head -n 1)
 
