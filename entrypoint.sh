@@ -5,7 +5,7 @@ set -eu
 deb_file=$(find /app -name "Install-64bit.deb")
 
 if [ -z "${deb_file}" ]; then
-	echo "Error: No .deb file found in /app."
+	echo "Error: No .deb file named 'Install-64bit.deb' found in /app (searched recursively)."
 	exit 1
 fi
 
