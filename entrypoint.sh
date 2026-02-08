@@ -28,7 +28,7 @@ executable=$(echo "${installed_files}" | grep -E "^/usr/bin/|^/bin/|^/opt/.*bin/
 [ -z "${executable}" ] &&
 	executable=$(
 		echo "${installed_files}" |
-			while read f; do
+			while read -r f; do
 				if [ -x "${f}" ] && [ -f "${f}" ]; then
 					echo "${f}"
 					break
