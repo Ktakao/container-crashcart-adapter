@@ -16,10 +16,18 @@ RUN apt-get update && apt-get install -y \
     usbutils \
     && rm -rf /var/lib/apt/lists/*
 
+FROM ubuntu:22.04 AS patch
+
+RUN apt-get update && apt-get install -y --no-install-recommends python2.7 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY app/usb-crash-cart-adapter.deb patch-pil.py /tmp/
+RUN dpkg-deb -x /tmp/usb-crash-cart-adapter.deb /rootfs \
+    && python2.7 /tmp/patch-pil.py /rootfs/opt/usb-crash-cart-adapter/20240517/guts/library.zip
+
 FROM runtime
 
-COPY app/usb-crash-cart-adapter.deb /tmp/
-RUN dpkg-deb -x /tmp/usb-crash-cart-adapter.deb / && rm -f /tmp/usb-crash-cart-adapter.deb /.DS_Store
+COPY --from=patch /rootfs/opt /opt
 
 WORKDIR /root
 ENTRYPOINT ["/opt/usb-crash-cart-adapter/20240517/guts/dover"]

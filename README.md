@@ -54,6 +54,9 @@ XAUTHORITY=$XAUTHORITY docker compose up
 **ビルドが `app/usb-crash-cart-adapter.deb: not found` で失敗する**
 `app/` に deb が指定の名前で置かれているか確認すること。
 
+**スナップショット保存が `fromstring() has been removed` で失敗する**
+ベンダーのコードが呼ぶ PIL の `fromstring()` は、同梱の Pillow 3.1.2 では削除されている。ビルド時に `patch-pil.py` が `library.zip` 内の `PIL/Image.pyc` を書き換え、`fromstring` / `tostring` を `frombytes` / `tobytes` へ委譲させているため、このリポジトリでビルドしたイメージでは発生しない。発生する場合は古いイメージなので `docker compose up --build` で再ビルドすること。
+
 ## ライセンス
 
 このリポジトリのファイルは MIT License ですが、ベンダーソフトウェアには StarTech のライセンスが適用されます。
