@@ -12,5 +12,6 @@ services:
       - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority:ro
       - /dev/bus/usb:/dev/bus/usb
       - ./screenshots:/root/screenshots:Z
+      - ./filetransfer:/root/filetransfer:Z
     device_cgroup_rules:
       - 'c 189:* rmw'

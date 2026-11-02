@@ -39,6 +39,11 @@ docker compose up --build
 
 以降は `docker compose up` だけで起動します。
 
+## ホストディレクトリのマウント
+### ファイル転送用ディレクトリ
+File Transfer機能で使うVHDファイルやISOイメージは、`filetransfer/` に置くことでホストと共有できる。
+スクリーンショット機能で保存されたスクリーンショットは `screenshots/`に保存することでホストと共有できる。
+
 ## QA
 
 **`Unable to access the X Display, is $DISPLAY set properly?`**

@@ -2,3 +2,5 @@ app/*
 !app/.gitkeep
 screenshots/*
 !screenshots/.gitkeep
+filetransfer/*
+!filetransfer/.gitkeep
