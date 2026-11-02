@@ -1,45 +1,25 @@
-FROM ubuntu:22.04
+FROM ubuntu:22.04 AS runtime
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive \
+    LANG=C.UTF-8
 
-# Install dependencies for StarTech Crash Cart Adapter software
-RUN apt update && apt install -y \
-    libnss3 \
-    libatk1.0-0 \
-    libatk-bridge2.0-0 \
-    libcups2 \
-    libdrm2 \
-    libgtk-3-0 \
-    libgbm1 \
-    libasound2 \
-    libx11-xcb1 \
-    libxcb-dri3-0 \
-    libxcomposite1 \
-    libxcursor1 \
-    libxdamage1 \
-    libxi6 \
-    libxtst6 \
-    libxss1 \
-    libxrandr2 \
+RUN apt-get update && apt-get install -y \
     libgtk2.0-0 \
     libsdl1.2debian \
+    libxxf86vm1 \
+    libsm6 \
+    libtiff5 \
+    libjpeg8 \
+    libexpat1 \
     libcanberra-gtk-module \
-    libcanberra-gtk3-module \
-    udev \
-    xdg-utils \
+    fonts-dejavu-core \
     usbutils \
-    curl \
-    file \
-    sudo \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+FROM runtime
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY app/usb-crash-cart-adapter.deb /tmp/
+RUN dpkg-deb -x /tmp/usb-crash-cart-adapter.deb / && rm -f /tmp/usb-crash-cart-adapter.deb /.DS_Store
 
-# Environment setup for XDG
-ENV XDG_DATA_DIRS=/usr/share
-RUN mkdir -p /usr/share/desktop-directories /usr/share/applications
-
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+WORKDIR /root
+ENTRYPOINT ["/opt/usb-crash-cart-adapter/20240517/guts/dover"]
